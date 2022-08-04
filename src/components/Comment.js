@@ -4,7 +4,7 @@ import IconButton from "./IconButton";
 import { useState } from "react";
 import NewReply from "./NewReply";
 import Button from "./Button";
-
+import { CSSTransition } from "react-transition-group";
 const Comment = ({
 	comment,
 	currentUser,
@@ -118,14 +118,23 @@ const Comment = ({
 					)}
 				</article>
 			</section>
-			{newReplyForComment && (
+			<CSSTransition
+				in={newReplyForComment}
+				timeout={{
+					enter: 400,
+					exit: 200,
+				}}
+				unmountOnExit
+				mountOnEnter
+				classNames="scale"
+			>
 				<NewReply
 					currentUser={currentUser}
 					handlePostReply={addReply}
 					commentId={comment.id}
 					idRec={idRec}
 				/>
-			)}
+			</CSSTransition>
 			{comment.replies.length ? (
 				<ReplyList
 					replies={comment.replies}

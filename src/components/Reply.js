@@ -3,6 +3,7 @@ import IconButton from "./IconButton";
 import { useState } from "react";
 import NewReply from "./NewReply";
 import Button from "./Button";
+import { CSSTransition } from "react-transition-group";
 
 const Reply = ({
 	reply,
@@ -115,14 +116,23 @@ const Reply = ({
 					)}
 				</article>
 			</section>
-			{newReplyforReply && (
+			<CSSTransition
+				in={newReplyforReply}
+				timeout={{
+					enter: 400,
+					exit: 200,
+				}}
+				unmountOnExit
+				mountOnEnter
+				classNames="scale"
+			>
 				<NewReply
 					currentUser={currentUser}
 					handlePostReply={addReply}
 					idRec={idRec}
 					commentId={commentId}
 				/>
-			)}
+			</CSSTransition>
 		</>
 	);
 };
