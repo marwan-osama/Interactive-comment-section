@@ -1,0 +1,20 @@
+$colors: (
+	"blue": hsl(238, 40%, 52%),
+	"d-blue": hsl(212, 24%, 26%),
+	"red": hsl(358, 79%, 66%),
+	"l-red": hsl(357, 100%, 86%),
+	"gray-blue": hsl(211, 10%, 45%),
+	"l-gray-blue": hsl(239, 57%, 85%),
+	"l-gray": hsl(223, 19%, 93%),
+	"vl-gray": hsl(228, 33%, 97%),
+	"white": hsl(0, 0%, 100%),
+);
+
+@each $color, $value in $colors {
+	.bg-#{$color} {
+		background-color: $value;
+	}
+	.clr-#{$color} {
+		color: $value;
+	}
+}

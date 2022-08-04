@@ -1,0 +1,26 @@
+@mixin s-screen {
+	@media (min-width: 480px) {
+		@content;
+	}
+}
+@mixin m-screen {
+	@media (min-width: 768px) {
+		@content;
+	}
+}
+@mixin l-screen {
+	@media (min-width: 1024px) {
+		@content;
+	}
+}
+@mixin xl-screen {
+	@media (min-width: 1200px) {
+		@content;
+	}
+}
+
+@mixin breakpoint($bp) {
+	@media (min-width: $bp) {
+		@content;
+	}
+}

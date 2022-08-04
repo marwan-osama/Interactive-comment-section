@@ -1,60 +1,8 @@
-$colors: (
-	"blue": hsl(238, 40%, 52%),
-	"d-blue": hsl(212, 24%, 26%),
-	"red": hsl(358, 79%, 66%),
-	"l-red": hsl(357, 100%, 86%),
-	"gray-blue": hsl(211, 10%, 45%),
-	"l-gray-blue": hsl(239, 57%, 85%),
-	"l-gray": hsl(223, 19%, 93%),
-	"vl-gray": hsl(228, 33%, 97%),
-	"white": hsl(0, 0%, 100%),
-);
-
-@each $color, $value in $colors {
-	.bg-#{$color} {
-		background-color: $value;
-	}
-	.clr-#{$color} {
-		color: $value;
-	}
-}
-
-@mixin flex-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.btn {
-	padding: 16px 24px;
-	border-radius: 8px;
-}
-
-.fw-s {
-	font-weight: 400;
-}
-.fw-m {
-	font-weight: 500;
-}
-.fw-l {
-	font-weight: 700;
-}
-
-.fs-xxs {
-	font-size: 9px;
-}
-.fs-xs {
-	font-size: 12px;
-}
-.fs-s {
-	font-size: 16px;
-}
-.fs-m {
-	font-size: 20px;
-}
-.fs-l {
-	font-size: 24px;
-}
+@import "breakpoints";
+@import "colors";
+@import "fonts";
+@import "utils";
+@import "animations";
 
 body {
 	font-family: Rubik, Helvetica, Arial, sans-serif;
@@ -69,6 +17,11 @@ body {
 	&:hover {
 		opacity: 0.4;
 	}
+}
+
+.btn {
+	padding: 16px 24px;
+	border-radius: 8px;
 }
 
 button {
@@ -195,24 +148,4 @@ button {
 	* {
 		float: right;
 	}
-}
-
-.scale-enter {
-	opacity: 0;
-	transform: scale(0);
-}
-.scale-enter-active {
-	opacity: 1;
-	transform: scale(1);
-	transform-origin: top center;
-	transition: opacity 400ms, transform 400ms ease-out;
-}
-.scale-exit {
-	opacity: 1;
-	transform: scale(1);
-}
-.scale-exit-active {
-	opacity: 0;
-	transform: scale(0);
-	transition: opacity 200ms, transform 200ms ease-in;
 }
