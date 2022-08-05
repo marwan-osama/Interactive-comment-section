@@ -113,7 +113,7 @@ const Reply = ({
 				in={newReplyforReply}
 				timeout={{
 					enter: 400,
-					exit: 200,
+					exit: 0,
 				}}
 				unmountOnExit
 				mountOnEnter
