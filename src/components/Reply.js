@@ -1,5 +1,5 @@
 import Score from "./Score";
-import IconButton from "./IconButton";
+import CommentButtons from "./CommentButtons";
 import { useState } from "react";
 import NewReply from "./NewReply";
 import Button from "./Button";
@@ -55,7 +55,16 @@ const Reply = ({
 	return (
 		<>
 			<section className="comment">
-				<Score score={reply.score} handleUpdateScore={updateScore} />
+				<div className="vote-wrapper">
+					<Score score={reply.score} handleUpdateScore={updateScore} />
+					<CommentButtons
+						you={reply.user.username === currentUser.username}
+						mobile={true}
+						handleDelete={deleteReply}
+						handleEdit={toggleEditMode}
+						handleReply={toggleNewReplyforReply}
+					/>
+				</div>
 				<article className="comment-content">
 					<div className="comment-top-section">
 						<div className="user-details">
@@ -75,29 +84,13 @@ const Reply = ({
 								{reply.createdAt}
 							</span>
 						</div>
-						<div className="comment-buttons">
-							{reply.user.username === currentUser.username ? (
-								<>
-									<IconButton
-										icon={process.env.PUBLIC_URL + "/images/icon-delete.svg"}
-										text="delete"
-										handleClick={deleteReply}
-										className="clr-red"
-									/>
-									<IconButton
-										icon={process.env.PUBLIC_URL + "/images/icon-edit.svg"}
-										text="Edit"
-										handleClick={toggleEditMode}
-									/>
-								</>
-							) : (
-								<IconButton
-									icon={process.env.PUBLIC_URL + "/images/icon-reply.svg"}
-									text="Reply"
-									handleClick={toggleNewReplyforReply}
-								/>
-							)}
-						</div>
+						<CommentButtons
+							you={reply.user.username === currentUser.username}
+							mobile={false}
+							handleDelete={deleteReply}
+							handleEdit={toggleEditMode}
+							handleReply={toggleNewReplyforReply}
+						/>
 					</div>
 					{editMode ? (
 						<>

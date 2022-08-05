@@ -1,10 +1,10 @@
 import ReplyList from "./ReplyList";
 import Score from "./Score";
-import IconButton from "./IconButton";
 import { useState } from "react";
 import NewReply from "./NewReply";
 import Button from "./Button";
 import { CSSTransition } from "react-transition-group";
+import CommentButtons from "./CommentButtons";
 const Comment = ({
 	comment,
 	currentUser,
@@ -55,7 +55,16 @@ const Comment = ({
 	return (
 		<div className="comment-wrapper">
 			<section className="comment">
-				<Score score={comment.score} handleUpdateScore={updateScore} />
+				<div className="vote-wrapper">
+					<Score score={comment.score} handleUpdateScore={updateScore} />
+					<CommentButtons
+						you={comment.user.username === currentUser.username}
+						mobile={true}
+						handleDelete={deleteComment}
+						handleEdit={toggleEditMode}
+						handleReply={toggleNewReplyForComment}
+					/>
+				</div>
 				<article className="comment-content">
 					<div className="comment-top-section">
 						<div className="user-details">
@@ -77,29 +86,13 @@ const Comment = ({
 								{comment.createdAt}
 							</span>
 						</div>
-						<div className="comment-buttons">
-							{comment.user.username === currentUser.username ? (
-								<>
-									<IconButton
-										icon={process.env.PUBLIC_URL + "/images/icon-delete.svg"}
-										text="delete"
-										handleClick={deleteComment}
-										className="clr-red"
-									/>
-									<IconButton
-										icon={process.env.PUBLIC_URL + "/images/icon-edit.svg"}
-										text="Edit"
-										handleClick={toggleEditMode}
-									/>
-								</>
-							) : (
-								<IconButton
-									icon={process.env.PUBLIC_URL + "/images/icon-reply.svg"}
-									text="Reply"
-									handleClick={toggleNewReplyForComment}
-								/>
-							)}
-						</div>
+						<CommentButtons
+							you={comment.user.username === currentUser.username}
+							mobile={false}
+							handleDelete={deleteComment}
+							handleEdit={toggleEditMode}
+							handleReply={toggleNewReplyForComment}
+						/>
 					</div>
 					{editMode ? (
 						<>
@@ -122,7 +115,7 @@ const Comment = ({
 				in={newReplyForComment}
 				timeout={{
 					enter: 400,
-					exit: 200,
+					exit: 0,
 				}}
 				unmountOnExit
 				mountOnEnter

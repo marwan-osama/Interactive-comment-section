@@ -114,17 +114,6 @@
   transition: opacity 400ms, transform 400ms ease-out;
 }
 
-.scale-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.scale-exit-active {
-  opacity: 0;
-  transform: scale(0);
-  transition: opacity 200ms, transform 200ms ease-in;
-}
-
 body {
   font-family: Rubik, Helvetica, Arial, sans-serif;
   background-color: #f5f6fa;
@@ -145,14 +134,14 @@ body {
   padding: 16px 24px;
   border-radius: 8px;
 }
+.btn:hover {
+  opacity: 0.4;
+}
 
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-button:hover {
-  opacity: 0.4;
 }
 
 .comment {
@@ -163,17 +152,27 @@ button:hover {
   display: flex;
   gap: 24px;
 }
-.comment .vote-box {
+.comment .vote-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.comment .vote-wrapper .vote-box {
   border-radius: 8px;
   height: min-content;
+  width: min-content;
 }
-.comment .vote-box > * {
+.comment .vote-wrapper .vote-box > * {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 32px;
   text-align: center;
+}
+@media (max-width: 768px) {
+  .comment .vote-wrapper .vote-box {
+    display: flex;
+  }
 }
 .comment .comment-content {
   display: flex;
@@ -215,6 +214,11 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
+@media (max-width: 768px) {
+  .comment {
+    flex-direction: column-reverse;
+  }
+}
 
 .textarea {
   flex-grow: 1;
@@ -253,9 +257,14 @@ button:hover {
   border: 1px solid #eaecf1;
   margin: 4px 32px 12px 32px;
 }
+@media (max-width: 768px) {
+  .reply-list-wrapper .vl {
+    margin: 4px 16px 12px 16px;
+  }
+}
 
 .comments-list {
-  width: min(80vw, 768px);
+  width: min(90vw, 768px);
   margin: auto;
   margin-top: 64px;
   display: flex;
@@ -265,6 +274,21 @@ button:hover {
 
 .comment-bottom * {
   float: right;
+}
+
+.comment-buttons-mobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .comment-buttons-mobile {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .comment-buttons-large-screen {
+    display: none !important;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */
