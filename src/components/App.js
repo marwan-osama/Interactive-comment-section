@@ -75,10 +75,20 @@ const data = {
 	],
 };
 
-let id = 4;
 const idRecorder = () => {
-	id += 1;
-	return id;
+	let id;
+	const lastComment = data.comments[data.comments.length - 1];
+	if (lastComment) {
+		const lastReply = lastComment.replies[lastComment.replies.length - 1];
+		if (lastReply) {
+			id = lastReply.id;
+		} else {
+			id = lastComment.id;
+		}
+	} else {
+		id = 0;
+	}
+	return id + 1;
 };
 
 function App() {
