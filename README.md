@@ -2,7 +2,7 @@
 
 This project is a submission for front-end mentor's challenge [here](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9)
 
-This application has the functionality of deleting comments and replies, editing comments and replies, and creating new comments and replies.
+This application has the functionality of creating, editing, and deleting comments/replies.
 
 ## Setup
 
