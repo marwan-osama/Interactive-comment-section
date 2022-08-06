@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 
@@ -75,24 +75,19 @@ const data = {
 	],
 };
 
-const idRecorder = () => {
-	let id;
-	const lastComment = data.comments[data.comments.length - 1];
-	if (lastComment) {
-		const lastReply = lastComment.replies[lastComment.replies.length - 1];
-		if (lastReply) {
-			id = lastReply.id;
-		} else {
-			id = lastComment.id;
-		}
-	} else {
-		id = 0;
-	}
-	return id + 1;
-};
-
 function App() {
 	const [comments, setComments] = useState(data.comments);
+
+	const idRecorder = () => {
+		const allIds = comments.reduce((ids, comment) => {
+			const commentReplysId = comment.replies.map((reply) => {
+				return reply.id;
+			});
+			ids.push(comment.id, ...commentReplysId);
+			return ids;
+		}, []);
+		return Math.max(...allIds) + 1;
+	};
 
 	const addComment = (comment) => {
 		setComments([...comments, comment]);
@@ -143,6 +138,13 @@ function App() {
 		});
 		setComments(commentsCopy);
 	};
+
+	useEffect(() => {
+		localStorage.setItem("data", {
+			currentUser: data.currentUser,
+			comments: comments,
+		});
+	}, [comments]);
 
 	return (
 		<div className="App">
