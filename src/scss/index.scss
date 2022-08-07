@@ -59,13 +59,6 @@ button {
 			height: min-content;
 			width: min-content;
 
-			button {
-				transition: color 250ms;
-				&:hover {
-					color: map-get($colors, "blue");
-				}
-			}
-
 			& > * {
 				@include flex-center;
 				width: 36px;

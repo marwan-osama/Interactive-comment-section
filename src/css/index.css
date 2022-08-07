@@ -195,12 +195,6 @@ button {
   height: min-content;
   width: min-content;
 }
-.comment .vote-wrapper .vote-box button {
-  transition: color 250ms;
-}
-.comment .vote-wrapper .vote-box button:hover {
-  color: #5457b6;
-}
 .comment .vote-wrapper .vote-box > * {
   display: flex;
   align-items: center;
