@@ -12,6 +12,7 @@ body {
 
 .icon-btn {
 	@include flex-center;
+	transition: opacity 250ms;
 	gap: 8px;
 
 	&:hover {
@@ -22,6 +23,7 @@ body {
 .btn {
 	padding: 16px 24px;
 	border-radius: 8px;
+	transition: opacity 250ms;
 
 	&:hover {
 		opacity: 0.4;
@@ -56,6 +58,13 @@ button {
 			border-radius: 8px;
 			height: min-content;
 			width: min-content;
+
+			button {
+				transition: color 250ms;
+				&:hover {
+					color: map-get($colors, "blue");
+				}
+			}
 
 			& > * {
 				@include flex-center;
