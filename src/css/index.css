@@ -144,6 +144,12 @@ button {
   cursor: pointer;
 }
 
+.comment-inner-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .comment {
   flex-grow: 1;
   padding: 24px;

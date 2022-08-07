@@ -58,7 +58,7 @@ const Reply = ({
 	};
 
 	return (
-		<>
+		<div className="comment-inner-wrap">
 			<section className="comment">
 				<div className="vote-wrapper">
 					<Score score={reply.score} handleUpdateScore={updateScore} />
@@ -141,7 +141,7 @@ const Reply = ({
 					commentId={commentId}
 				/>
 			</CSSTransition>
-		</>
+		</div>
 	);
 };
 

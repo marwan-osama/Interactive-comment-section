@@ -54,85 +54,89 @@ const Comment = ({
 
 	return (
 		<div className="comment-wrapper">
-			<section className="comment">
-				<div className="vote-wrapper">
-					<Score score={comment.score} handleUpdateScore={updateScore} />
-					<CommentButtons
-						you={comment.user.username === currentUser.username}
-						mobile={true}
-						handleDelete={deleteComment}
-						handleEdit={toggleEditMode}
-						handleReply={toggleNewReplyForComment}
-					/>
-				</div>
-				<article className="comment-content">
-					<div className="comment-top-section">
-						<div className="user-details">
-							<span className="avatar">
-								<img
-									src={process.env.PUBLIC_URL + comment.user.image.png}
-									alt={comment.user.username}
-								/>
-							</span>
-							<span className="username fw-m fs-s">
-								{comment.user.username}
-							</span>
-							{comment.user.username === currentUser.username && (
-								<div className="you-wrapper">
-									<span className="bg-blue clr-white you fs-xxs">you</span>
-								</div>
-							)}
-							<span className="created-at clr-gray-blue">
-								{comment.createdAt}
-							</span>
-						</div>
+			<div className="comment-inner-wrap">
+				<section className="comment">
+					<div className="vote-wrapper">
+						<Score score={comment.score} handleUpdateScore={updateScore} />
 						<CommentButtons
 							you={comment.user.username === currentUser.username}
-							mobile={false}
+							mobile={true}
 							handleDelete={deleteComment}
 							handleEdit={toggleEditMode}
 							handleReply={toggleNewReplyForComment}
 						/>
 					</div>
-					{editMode ? (
-						<>
-							<textarea
-								className="textarea fs-s"
-								value={textEdit}
-								onChange={handleTextEdit}
-								rows={4}
-							/>
-							<div className="comment-bottom">
-								<Button
-									text="UPDATE"
-									handleClick={updateText}
-									disabled={!textEdit.trim()}
-								/>
+					<article className="comment-content">
+						<div className="comment-top-section">
+							<div className="user-details">
+								<span className="avatar">
+									<img
+										src={process.env.PUBLIC_URL + comment.user.image.png}
+										alt={comment.user.username}
+									/>
+								</span>
+								<span className="username fw-m fs-s">
+									{comment.user.username}
+								</span>
+								{comment.user.username === currentUser.username && (
+									<div className="you-wrapper">
+										<span className="bg-blue clr-white you fs-xxs">you</span>
+									</div>
+								)}
+								<span className="created-at clr-gray-blue">
+									{comment.createdAt}
+								</span>
 							</div>
-						</>
-					) : (
-						<div className="comment-text clr-gray-blue">{comment.content}</div>
-					)}
-				</article>
-			</section>
-			<CSSTransition
-				in={newReplyForComment}
-				timeout={{
-					enter: 400,
-					exit: 0,
-				}}
-				unmountOnExit
-				mountOnEnter
-				classNames="scale"
-			>
-				<NewReply
-					currentUser={currentUser}
-					replyingTo={comment.user.username}
-					handlePostReply={addReply}
-					commentId={comment.id}
-					idRec={idRec}
-				/>
-			</CSSTransition>
+							<CommentButtons
+								you={comment.user.username === currentUser.username}
+								mobile={false}
+								handleDelete={deleteComment}
+								handleEdit={toggleEditMode}
+								handleReply={toggleNewReplyForComment}
+							/>
+						</div>
+						{editMode ? (
+							<>
+								<textarea
+									className="textarea fs-s"
+									value={textEdit}
+									onChange={handleTextEdit}
+									rows={4}
+								/>
+								<div className="comment-bottom">
+									<Button
+										text="UPDATE"
+										handleClick={updateText}
+										disabled={!textEdit.trim()}
+									/>
+								</div>
+							</>
+						) : (
+							<div className="comment-text clr-gray-blue">
+								{comment.content}
+							</div>
+						)}
+					</article>
+				</section>
+				<CSSTransition
+					in={newReplyForComment}
+					timeout={{
+						enter: 400,
+						exit: 0,
+					}}
+					unmountOnExit
+					mountOnEnter
+					classNames="scale"
+				>
+					<NewReply
+						currentUser={currentUser}
+						replyingTo={comment.user.username}
+						handlePostReply={addReply}
+						commentId={comment.id}
+						idRec={idRec}
+					/>
+				</CSSTransition>
+			</div>
 			{comment.replies.length ? (
 				<ReplyList
 					replies={comment.replies}
