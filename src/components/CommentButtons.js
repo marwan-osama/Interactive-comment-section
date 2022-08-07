@@ -3,6 +3,7 @@ const CommentButtons = ({
 	handleEdit,
 	handleDelete,
 	handleReply,
+	newReplyOpened,
 	you,
 	mobile,
 }) => {
@@ -27,11 +28,22 @@ const CommentButtons = ({
 					/>
 				</>
 			) : (
-				<IconButton
-					icon={process.env.PUBLIC_URL + "/images/icon-reply.svg"}
-					text="Reply"
-					handleClick={handleReply}
-				/>
+				<>
+					{newReplyOpened ? (
+						<IconButton
+							icon={process.env.PUBLIC_URL + "/images/icon-cancel.svg"}
+							text="Cancel"
+							handleClick={handleReply}
+							className="clr-black"
+						/>
+					) : (
+						<IconButton
+							icon={process.env.PUBLIC_URL + "/images/icon-reply.svg"}
+							text="Reply"
+							handleClick={handleReply}
+						/>
+					)}
+				</>
 			)}
 		</div>
 	);

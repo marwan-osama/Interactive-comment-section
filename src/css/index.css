@@ -70,6 +70,14 @@
   color: white;
 }
 
+.bg-black {
+  background-color: black;
+}
+
+.clr-black {
+  color: black;
+}
+
 .fw-s {
   font-weight: 400;
 }

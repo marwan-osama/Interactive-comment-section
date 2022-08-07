@@ -61,6 +61,7 @@ const Comment = ({
 						<CommentButtons
 							you={comment.user.username === currentUser.username}
 							mobile={true}
+							newReplyOpened={newReplyForComment}
 							handleDelete={deleteComment}
 							handleEdit={toggleEditMode}
 							handleReply={toggleNewReplyForComment}
@@ -90,6 +91,7 @@ const Comment = ({
 							<CommentButtons
 								you={comment.user.username === currentUser.username}
 								mobile={false}
+								newReplyOpened={newReplyForComment}
 								handleDelete={deleteComment}
 								handleEdit={toggleEditMode}
 								handleReply={toggleNewReplyForComment}
