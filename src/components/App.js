@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import DeleteConfirm from "./DeleteConfirm";
 import NewComment from "./NewComment";
+import { CSSTransition } from "react-transition-group";
 
 const data = localStorage.getItem("commentSectionData")
 	? JSON.parse(localStorage.getItem("commentSectionData"))
@@ -80,6 +81,7 @@ const data = localStorage.getItem("commentSectionData")
 
 function App() {
 	const [comments, setComments] = useState(data.comments);
+	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [deletionOnConfirm, setDeletionOnConfirm] = useState({
 		itemToDelete: "",
 		id: null,
@@ -87,6 +89,7 @@ function App() {
 
 	const addToDeletion = (itemToDelete, id) => {
 		setDeletionOnConfirm({ itemToDelete, id });
+		setShowDeleteDialog(true);
 	};
 	const resetDeletion = () => {
 		setDeletionOnConfirm({
@@ -100,7 +103,7 @@ function App() {
 		} else if (deletionOnConfirm.itemToDelete === "Comment") {
 			deleteComment(deletionOnConfirm.id);
 		}
-		resetDeletion();
+		setShowDeleteDialog(false);
 	};
 
 	const idRecorder = () => {
@@ -198,13 +201,22 @@ function App() {
 					postComment={addComment}
 				/>
 			</div>
-			{deletionOnConfirm.id && (
+			<CSSTransition
+				in={showDeleteDialog}
+				timeout={250}
+				unmountOnExit
+				mountOnEnter
+				onExited={resetDeletion}
+				classNames="fade"
+			>
 				<DeleteConfirm
 					itemToDelete={deletionOnConfirm.itemToDelete}
 					onDelete={confirmDelete}
-					onCancel={resetDeletion}
+					onCancel={() => {
+						setShowDeleteDialog(false);
+					}}
 				/>
-			)}
+			</CSSTransition>
 		</div>
 	);
 }
