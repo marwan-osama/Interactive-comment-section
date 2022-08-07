@@ -10,7 +10,7 @@ const NewComment = ({ currentUser, postComment, idRec }) => {
 	const handlePostComment = () => {
 		const comment = {
 			id: idRec(),
-			content: commentText,
+			content: commentText.trim(),
 			createdAt: "1 minute ago",
 			score: 0,
 			user: {
@@ -38,7 +38,11 @@ const NewComment = ({ currentUser, postComment, idRec }) => {
 				placeholder="Add a comment..."
 			/>
 			<div>
-				<Button handleClick={handlePostComment} text="SEND" />
+				<Button
+					handleClick={handlePostComment}
+					text="SEND"
+					disabled={!commentText.trim()}
+				/>
 			</div>
 		</section>
 	);

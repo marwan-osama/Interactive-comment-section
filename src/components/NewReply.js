@@ -1,18 +1,28 @@
 import { useState } from "react";
 import Button from "./Button";
 
-const NewReply = ({ currentUser, handlePostReply, commentId, idRec }) => {
-	const [replyText, setReplyText] = useState("");
+const NewReply = ({
+	currentUser,
+	replyingTo,
+	handlePostReply,
+	commentId,
+	idRec,
+}) => {
+	const [replyText, setReplyText] = useState(`@${replyingTo} `);
 	const handleReplyText = (e) => {
+		if (e.target.value.search(`@${replyingTo} `) === -1) {
+			return;
+		}
 		setReplyText(e.target.value);
 	};
 
 	const handleClick = () => {
 		const reply = {
 			id: idRec(),
-			content: replyText,
+			content: replyText.replace(`@${replyingTo} `, "").trim(),
 			createdAt: "1 minute ago",
 			score: 0,
+			replyingTo: replyingTo,
 			user: {
 				image: {
 					png: currentUser.image.png,
@@ -39,7 +49,7 @@ const NewReply = ({ currentUser, handlePostReply, commentId, idRec }) => {
 				<Button
 					handleClick={handleClick}
 					text="REPLY"
-					disabled={!replyText.length}
+					disabled={!replyText.replace(`@${replyingTo} `, "").trim()}
 				/>
 			</div>
 		</section>

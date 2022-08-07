@@ -47,7 +47,7 @@ const Comment = ({
 
 	const updateText = () => {
 		const commentCopy = { ...comment };
-		commentCopy.content = textEdit;
+		commentCopy.content = textEdit.trim();
 		handleEditComment(commentCopy);
 		setEditMode(false);
 	};
@@ -103,7 +103,11 @@ const Comment = ({
 								rows={4}
 							/>
 							<div className="comment-bottom">
-								<Button text="UPDATE" handleClick={updateText} />
+								<Button
+									text="UPDATE"
+									handleClick={updateText}
+									disabled={!textEdit.trim()}
+								/>
 							</div>
 						</>
 					) : (
@@ -123,6 +127,7 @@ const Comment = ({
 			>
 				<NewReply
 					currentUser={currentUser}
+					replyingTo={comment.user.username}
 					handlePostReply={addReply}
 					commentId={comment.id}
 					idRec={idRec}

@@ -16,7 +16,9 @@ const Reply = ({
 }) => {
 	const [newReplyforReply, setNewReplyforReply] = useState(false);
 	const [editMode, setEditMode] = useState(false);
-	const [textEdit, setTextEdit] = useState(reply.content);
+	const [textEdit, setTextEdit] = useState(
+		`@${reply.replyingTo} ${reply.content}`
+	);
 
 	const toggleNewReplyforReply = () => {
 		setNewReplyforReply(!newReplyforReply);
@@ -36,6 +38,9 @@ const Reply = ({
 	};
 
 	const handleTextEdit = (e) => {
+		if (e.target.value.search(`@${reply.replyingTo} `) === -1) {
+			return;
+		}
 		setTextEdit(e.target.value);
 	};
 
@@ -47,7 +52,7 @@ const Reply = ({
 
 	const updateText = () => {
 		const replyCopy = { ...reply };
-		replyCopy.content = textEdit;
+		replyCopy.content = textEdit.replace(`@${reply.replyingTo} `, "").trim();
 		handleEditReply(replyCopy, commentId);
 		setEditMode(false);
 	};
@@ -101,11 +106,20 @@ const Reply = ({
 								rows={4}
 							/>
 							<div className="comment-bottom">
-								<Button text="UPDATE" handleClick={updateText} />
+								<Button
+									text="UPDATE"
+									handleClick={updateText}
+									disabled={
+										!textEdit.replace(`@${reply.replyingTo} `, "").trim()
+									}
+								/>
 							</div>
 						</>
 					) : (
-						<div className="comment-text clr-gray-blue">{reply.content}</div>
+						<div className="comment-text clr-gray-blue">
+							<span className="clr-blue fw-m">@{reply.replyingTo} </span>
+							{reply.content}
+						</div>
 					)}
 				</article>
 			</section>
@@ -121,6 +135,7 @@ const Reply = ({
 			>
 				<NewReply
 					currentUser={currentUser}
+					replyingTo={reply.user.username}
 					handlePostReply={addReply}
 					idRec={idRec}
 					commentId={commentId}
