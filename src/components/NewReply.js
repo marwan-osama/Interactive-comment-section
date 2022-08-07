@@ -36,7 +36,7 @@ const NewReply = ({
 	return (
 		<section className="new-comment bg-white">
 			<div className="avatar">
-				<img src={currentUser.image.png} />
+				<img src={currentUser.image.png} alt={currentUser.username} />
 			</div>
 			<textarea
 				value={replyText}
