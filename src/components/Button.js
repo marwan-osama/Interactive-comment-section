@@ -1,4 +1,4 @@
-const Button = ({ text, handleClick, disabled }) => {
+const Button = ({ text, handleClick, disabled, className }) => {
 	const handleBtnClick = (e) => {
 		e.preventDefault();
 		handleClick();
@@ -7,7 +7,7 @@ const Button = ({ text, handleClick, disabled }) => {
 	return (
 		<button
 			onClick={handleBtnClick}
-			className="btn bg-blue clr-white fw-l"
+			className={`btn bg-blue clr-white fw-l ${className || ""}`}
 			disabled={disabled}
 		>
 			{text}

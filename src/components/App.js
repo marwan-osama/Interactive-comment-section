@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
+import DeleteConfirm from "./DeleteConfirm";
 import NewComment from "./NewComment";
 
 const data = localStorage.getItem("commentSectionData")
@@ -79,6 +80,28 @@ const data = localStorage.getItem("commentSectionData")
 
 function App() {
 	const [comments, setComments] = useState(data.comments);
+	const [deletionOnConfirm, setDeletionOnConfirm] = useState({
+		itemToDelete: "",
+		id: null,
+	});
+
+	const addToDeletion = (itemToDelete, id) => {
+		setDeletionOnConfirm({ itemToDelete, id });
+	};
+	const resetDeletion = () => {
+		setDeletionOnConfirm({
+			itemToDelete: "",
+			id: null,
+		});
+	};
+	const confirmDelete = () => {
+		if (deletionOnConfirm.itemToDelete === "Reply") {
+			deleteReply(deletionOnConfirm.id);
+		} else if (deletionOnConfirm.itemToDelete === "Comment") {
+			deleteComment(deletionOnConfirm.id);
+		}
+		resetDeletion();
+	};
 
 	const idRecorder = () => {
 		const allIds = comments.reduce((ids, comment) => {
@@ -162,9 +185,9 @@ function App() {
 							idRec={idRecorder}
 							currentUser={data.currentUser}
 							handlePostReply={addReply}
-							handleDeleteReply={deleteReply}
+							handleDeleteReply={(id) => addToDeletion("Reply", id)}
 							handleEditReply={editReply}
-							handleDeleteComment={deleteComment}
+							handleDeleteComment={(id) => addToDeletion("Comment", id)}
 							handleEditComment={editComment}
 						/>
 					);
@@ -175,6 +198,13 @@ function App() {
 					postComment={addComment}
 				/>
 			</div>
+			{deletionOnConfirm.id && (
+				<DeleteConfirm
+					itemToDelete={deletionOnConfirm.itemToDelete}
+					onDelete={confirmDelete}
+					onCancel={resetDeletion}
+				/>
+			)}
 		</div>
 	);
 }
